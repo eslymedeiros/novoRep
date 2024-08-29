@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class player : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public float speed;
     public float JumpForce;
@@ -57,19 +57,19 @@ public class player : MonoBehaviour
             }
         }
     }
-
     void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.layer == 8){
             isJumping = false;
             anim.SetBool("jump", false);
         }
+        if(collision.gameObject.tag == "spike"){
+            GameController.instance.ShowGameOver();
+            Destroy(gameObject);
+        }
     }
     void OnCollisionExit2D(Collision2D collision){
         if(collision.gameObject.layer == 8){
             isJumping = true;
-            anim.SetBool("walk", false);
         }
     } 
 }
-
-    
